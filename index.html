@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Three.js VR Cube</title>
+  <title>Mobile VR Viewer</title>
   <style>body { margin: 0; }</style>
 </head>
 <body>
@@ -20,9 +20,10 @@
     document.body.appendChild(renderer.domElement);
     document.body.appendChild(VRButton.createButton(renderer));
 
-    const geo = new THREE.BoxGeometry();
-    const mat = new THREE.MeshStandardMaterial({ color: 0x00ff88 });
-    const cube = new THREE.Mesh(geo, mat);
+    const cube = new THREE.Mesh(
+      new THREE.BoxGeometry(),
+      new THREE.MeshStandardMaterial({ color: 0xff3366 })
+    );
     scene.add(cube);
 
     const light = new THREE.HemisphereLight(0xffffff, 0x444444);
