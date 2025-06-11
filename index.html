@@ -2,37 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Mobile VR Viewer</title>
-  <style>body { margin: 0; }</style>
+  <title>Device Orientation VR</title>
+  <style>body { margin: 0; overflow: hidden; }</style>
 </head>
 <body>
   <script type="module">
     import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161/build/three.module.js';
-    import { VRButton } from 'https://cdn.jsdelivr.net/npm/three@0.161/examples/jsm/webxr/VRButton.js';
+    import { DeviceOrientationControls } from 'https://cdn.jsdelivr.net/npm/three@0.161/examples/jsm/controls/DeviceOrientationControls.js';
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 100);
-    camera.position.z = 3;
-
+    const camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.xr.enabled = true;
+    renderer.setSize(innerWidth, innerHeight);
     document.body.appendChild(renderer.domElement);
-    document.body.appendChild(VRButton.createButton(renderer));
 
-    const cube = new THREE.Mesh(
-      new THREE.BoxGeometry(),
-      new THREE.MeshStandardMaterial({ color: 0xff3366 })
-    );
+    // Add simple cube
+    const geometry = new THREE.BoxGeometry();
+    const material = new THREE.MeshNormalMaterial();
+    const cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
 
-    const light = new THREE.HemisphereLight(0xffffff, 0x444444);
-    scene.add(light);
+    camera.position.z = 5;
 
-    renderer.setAnimationLoop(() => {
-      cube.rotation.x += 0.01;
-      cube.rotation.y += 0.01;
+    // Controls: Use phone orientation
+    const controls = new DeviceOrientationControls(camera);
+
+    // Animate
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update(); // Update camera orientation
       renderer.render(scene, camera);
+    }
+
+    animate();
+
+    // Handle resize
+    window.addEventListener('resize', () => {
+      camera.aspect = innerWidth / innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(innerWidth, innerHeight);
     });
   </script>
 </body>
