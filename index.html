@@ -8,7 +8,8 @@
 <body>
   <script type="module">
     import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js';
-    import { DeviceOrientationControls } from 'https://unpkg.com/three@0.161.0/examples/jsm/controls/DeviceOrientationControls.js';
+import { DeviceOrientationControls } from 'https://esm.sh/three@0.161.0/examples/jsm/controls/DeviceOrientationControls.js';
+
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 1000);
