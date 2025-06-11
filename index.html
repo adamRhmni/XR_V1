@@ -7,8 +7,8 @@
 </head>
 <body>
   <script type="module">
-    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161/build/three.module.js';
-    import { DeviceOrientationControls } from 'https://cdn.jsdelivr.net/npm/three@0.161/examples/jsm/controls/DeviceOrientationControls.js';
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js';
+    import { DeviceOrientationControls } from 'https://unpkg.com/three@0.161.0/examples/jsm/controls/DeviceOrientationControls.js';
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 1000);
@@ -16,7 +16,6 @@
     renderer.setSize(innerWidth, innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    // Add simple cube
     const geometry = new THREE.BoxGeometry();
     const material = new THREE.MeshNormalMaterial();
     const cube = new THREE.Mesh(geometry, material);
@@ -24,19 +23,16 @@
 
     camera.position.z = 5;
 
-    // Controls: Use phone orientation
     const controls = new DeviceOrientationControls(camera);
 
-    // Animate
     function animate() {
       requestAnimationFrame(animate);
-      controls.update(); // Update camera orientation
+      controls.update();
       renderer.render(scene, camera);
     }
 
     animate();
 
-    // Handle resize
     window.addEventListener('resize', () => {
       camera.aspect = innerWidth / innerHeight;
       camera.updateProjectionMatrix();
